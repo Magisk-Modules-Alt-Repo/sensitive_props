@@ -1,0 +1,6 @@
+id=hide_userdebug
+name=Hide UserDebug
+version=1.0
+versionCode=1
+author=HuskyDG
+description=Hide the fact that you are using userdebug ROM and USB debugging is enabled
