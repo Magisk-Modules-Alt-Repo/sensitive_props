@@ -16,6 +16,8 @@ while [ "$(getprop sys.boot_completed)" != 1 ]; do
     sleep 1
 done
 
+# these props should be set after boot completed to avoid breaking some device features
+
 check_resetprop ro.boot.vbmeta.device_state locked
 check_resetprop ro.boot.verifiedbootstate green
 check_resetprop ro.boot.flash.locked 1
@@ -31,6 +33,7 @@ check_resetprop ro.vendor.warranty_bit 0
 check_resetprop vendor.boot.vbmeta.device_state locked
 check_resetprop vendor.boot.verifiedbootstate green
 check_resetprop sys.oem_unlock_allowed 0
+check_resetprop init.svc.flash_recovery stopped
 
 maybe_resetprop ro.bootmode recovery unknown
 maybe_resetprop ro.boot.mode recovery unknown
