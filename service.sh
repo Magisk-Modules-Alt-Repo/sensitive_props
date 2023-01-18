@@ -1,25 +1,48 @@
-#!/system/bin/sh
+MAGISKTMP="$(magisk --path)" || MAGISKTMP=/sbin
+MODPATH="${0%/*}"
 
-MAGISKDIR="$(magisk --path)"
-[ -z "$MAGISKDIR" ] && MAGISKDIR=/sbin
+# Use Magisk Delta feature to dynamic patch prop
 
-# wait device to boot completed
-while [ "$(getprop sys.boot_completed)" != "1" ]; do sleep 1; done
+[ -d "$MAGISKTMP/.magisk/mirror/early-mount/initrc.d" ] && cp -Tf "$MODPATH/oem.rc" "$MAGISKTMP/.magisk/mirror/early-mount/initrc.d/oem.rc"
 
-# hide userdebug props
+. "$MODPATH/resetprop.sh"
 
-for propfile in /default.prop /system/build.prop /vendor/build.prop /product/build.prop /vendor/odm/etc/build.prop; do
-    cat $propfile |  grep "^ro." | grep userdebug >>"$MAGISKDIR/.magisk/hide-userdebug.prop"
-    cat $propfile |  grep "^ro." | grep test-keys >>"$MAGISKDIR/.magisk/hide-userdebug.prop"
+if [ "$(cat /sys/fs/selinux/enforce)" != "1" ]; then
+    chmod 660 /sys/fs/selinux/enforce
+    chmod 440 /sys/fs/selinux/policy
+fi
+
+while [ "$(getprop sys.boot_completed)" != 1 ]; do
+    sleep 1
 done
-sed -i "s/userdebug/user/g" "$MAGISKDIR/.magisk/hide-userdebug.prop"
-sed -i "s/test-keys/release-keys/g" "$MAGISKDIR/.magisk/hide-userdebug.prop"
-resetprop --file "$MAGISKDIR/.magisk/hide-userdebug.prop"
 
-# hide usb debugging
-{
-    while true; do
-        resetprop -n init.svc.adbd stopped
-        sleep 1;
-    done
-} &
+check_resetprop ro.boot.vbmeta.device_state locked
+check_resetprop ro.boot.verifiedbootstate green
+check_resetprop ro.boot.flash.locked 1
+check_resetprop ro.boot.veritymode enforcing
+check_resetprop ro.boot.warranty_bit 0
+check_resetprop ro.warranty_bit 0
+check_resetprop ro.debuggable 0
+check_resetprop ro.secure 1
+check_resetprop ro.build.type user
+check_resetprop ro.build.tags release-keys
+check_resetprop ro.vendor.boot.warranty_bit 0
+check_resetprop ro.vendor.warranty_bit 0
+check_resetprop vendor.boot.vbmeta.device_state locked
+check_resetprop vendor.boot.verifiedbootstate green
+check_resetprop sys.oem_unlock_allowed 0
+
+maybe_resetprop ro.bootmode recovery unknown
+maybe_resetprop ro.boot.mode recovery unknown
+maybe_resetprop vendor.bootmode recovery unknown
+maybe_resetprop vendor.boot.mode recovery unknown
+maybe_resetprop ro.boot.hwc CN GLOBAL
+maybe_resetprop ro.boot.hwcountry China GLOBAL
+selinux="$(resetprop ro.build.selinux)"
+[ -z "$selinux" ] || resetprop --delete ro.build.selinux
+
+for prefix in system vendor system_ext product oem odm vendor_dlkm odm_dlkm; do
+    check_resetprop ro.${prefix}.build.type user
+    check_resetprop ro.${prefix}.build.tags release-keys
+done
+

@@ -1,3 +1,3 @@
-# Userdebug Hider
+## Reset sensitive props
 
-Simple magisk boot script module to hide usb debugging and userdebug rom
+Reset sensitive properties to safe state, take from MagiskHide code
