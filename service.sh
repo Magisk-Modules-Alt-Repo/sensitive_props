@@ -49,3 +49,6 @@ for prefix in system vendor system_ext product oem odm vendor_dlkm odm_dlkm; do
     check_resetprop ro.${prefix}.build.tags release-keys
 done
 
+if [[ "$(resetprop -v ro.product.first_api_level)" -ge 33 ]]; then
+    resetprop -v -n ro.product.first_api_level 32
+fi
