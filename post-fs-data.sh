@@ -1,4 +1,14 @@
-. "${0%/*}/resetprop.sh"
+#!/system/bin/sh
+
+MODDIR="${0%/*}"
+MODNAME="${MODDIR##*/}"
+MAGISKTMP="$(magisk --path)" || MAGISKTMP=/sbin
+
+if [ ! -e "$MAGISKTMP/.magisk/mirror/sepolicy.rules/$MODNAME/sepolicy.rule" ] && [ ! -e "$MAGISKTMP/.magisk/sepolicy.rules/$MODNAME/sepolicy.rule" ]; then
+    magiskpolicy --live --apply "$MODDIR/sepolicy.rule"
+fi
+
+. "$MODDIR/resetprop.sh"
 
 # these props must be set in post-fs-data
 # clear out lineage and aosp words
