@@ -26,14 +26,19 @@ check_resetprop ro.boot.warranty_bit 0
 check_resetprop ro.warranty_bit 0
 check_resetprop ro.debuggable 0
 check_resetprop ro.secure 1
+check_resetprop ro.secureboot.devicelock 1
+check_resetprop ro.secureboot.lockstate locked
 check_resetprop ro.build.type user
+check_resetprop ro.build.keys release-keys
 check_resetprop ro.build.tags release-keys
+check_resetprop ro.build.host android
 check_resetprop ro.vendor.boot.warranty_bit 0
 check_resetprop ro.vendor.warranty_bit 0
 check_resetprop vendor.boot.vbmeta.device_state locked
 check_resetprop vendor.boot.verifiedbootstate green
 check_resetprop sys.oem_unlock_allowed 0
 check_resetprop init.svc.flash_recovery stopped
+check_resetprop gsm.network.type LTE
 
 maybe_resetprop ro.bootmode recovery unknown
 maybe_resetprop ro.boot.mode recovery unknown

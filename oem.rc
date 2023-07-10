@@ -5,3 +5,7 @@ on property:sys.oem_unlock_allowed=*
 # hide adbd is running
 on property:init.svc.adbd=*
     exec u:r:magisk:s0 root root -- ${MAGISKTMP}/resetprop -n init.svc.adbd stopped
+
+# reset network prop
+on property:gsm.network.type=*
+    exec u:r:magisk:s0 root root -- ${MAGISKTMP}/resetprop -n gsm.network.type LTE    

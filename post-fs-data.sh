@@ -28,6 +28,7 @@ replace_value_resetprop ro.build.flavor "aosp_" ""
 replace_value_resetprop ro.product.name "aosp_" ""
 replace_value_resetprop ro.build.flavor "lineage_" ""
 replace_value_resetprop ro.product.name "lineage_" ""
+replace_value_resetprop ro.build.flavor "userdebug" ""
 
 for prefix in system vendor system_ext product oem odm vendor_dlkm odm_dlkm; do
     check_resetprop ro.${prefix}.build.type user
