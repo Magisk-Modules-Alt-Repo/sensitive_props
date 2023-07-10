@@ -40,6 +40,9 @@ check_resetprop sys.oem_unlock_allowed 0
 check_resetprop init.svc.flash_recovery stopped
 check_resetprop gsm.network.type LTE
 
+# fake encryption
+check_resetprop ro.crypto.state encrypted
+
 maybe_resetprop ro.bootmode recovery unknown
 maybe_resetprop ro.boot.mode recovery unknown
 maybe_resetprop vendor.bootmode recovery unknown
