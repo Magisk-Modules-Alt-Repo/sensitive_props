@@ -31,7 +31,7 @@ check_resetprop ro.secureboot.lockstate locked
 check_resetprop ro.build.type user
 check_resetprop ro.build.keys release-keys
 check_resetprop ro.build.tags release-keys
-check_resetprop ro.build.host android
+check_resetprop ro.build.host 
 check_resetprop ro.vendor.boot.warranty_bit 0
 check_resetprop ro.vendor.warranty_bit 0
 check_resetprop vendor.boot.vbmeta.device_state locked
