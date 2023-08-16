@@ -31,7 +31,6 @@ check_resetprop ro.secureboot.lockstate locked
 check_resetprop ro.build.type user
 check_resetprop ro.build.keys release-keys
 check_resetprop ro.build.tags release-keys
-check_resetprop ro.build.host 
 check_resetprop ro.vendor.boot.warranty_bit 0
 check_resetprop ro.vendor.warranty_bit 0
 check_resetprop vendor.boot.vbmeta.device_state locked
@@ -39,13 +38,17 @@ check_resetprop vendor.boot.verifiedbootstate green
 check_resetprop sys.oem_unlock_allowed 0
 check_resetprop init.svc.flash_recovery stopped
 check_resetprop gsm.network.type LTE
+check_resetprop ro.boot.realmebootstate green
+check_resetprop ro.boot.realme.lockstate 1
 
 # fake encryption
 check_resetprop ro.crypto.state encrypted
 
 maybe_resetprop ro.bootmode recovery unknown
+maybe_resetprop ro.boot.bootmode recovery unknown
 maybe_resetprop ro.boot.mode recovery unknown
 maybe_resetprop vendor.bootmode recovery unknown
+maybe_resetprop vendor.boot.bootmode recovery unknown
 maybe_resetprop vendor.boot.mode recovery unknown
 maybe_resetprop ro.boot.hwc CN GLOBAL
 maybe_resetprop ro.boot.hwcountry China GLOBAL
