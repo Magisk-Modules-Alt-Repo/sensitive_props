@@ -1,6 +1,6 @@
 id=sensitive_props
 name=SafetyNet sensitive props
-version=v4
-versionCode=4
+version=v5
+versionCode=5
 author=HuskyDG
 description=Reset sensitive properties to safe state and try to bypass Safetynet / Play Integrity
