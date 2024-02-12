@@ -7,11 +7,6 @@ MODPATH="${0%/*}"
 
 . "$MODPATH/resetprop.sh"
 
-if [ "$(cat /sys/fs/selinux/enforce)" != "1" ]; then
-    chmod 660 /sys/fs/selinux/enforce
-    chmod 440 /sys/fs/selinux/policy
-fi
-
 while [ "$(getprop sys.boot_completed)" != 1 ]; do
     sleep 1
 done
